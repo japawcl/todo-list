@@ -8,8 +8,17 @@ import { Todo } from '@prisma/client';
 export class TodoService {
   public todo = new PrismaClient().todo;
 
-  public async findAllTodo(): Promise<Todo[]> {
-    const allTodo: Todo[] = await this.todo.findMany();
+  public async findAllTodo(search?: string): Promise<Todo[]> {
+    console.log(search);
+
+    const allTodo: Todo[] = await this.todo.findMany({
+      where: {
+        title: {
+          search: search,
+        },
+      },
+      orderBy: { id: 'asc' },
+    });
     return allTodo;
   }
 

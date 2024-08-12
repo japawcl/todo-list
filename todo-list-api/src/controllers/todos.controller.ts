@@ -8,7 +8,7 @@ export class TodoController {
 
   public getTodos = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const findAllTodosData: Todo[] = await this.todo.findAllTodo();
+      const findAllTodosData: Todo[] = await this.todo.findAllTodo(req.query['search'] as string);
 
       res.status(200).json({ data: findAllTodosData, message: 'findAll' });
     } catch (error) {
